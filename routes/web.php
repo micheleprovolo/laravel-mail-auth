@@ -1,7 +1,8 @@
 <?php
 
 
-Route::get('/', 'MainController@index') -> name('home.index');
+Route::get('/', 'MainController@index') -> name('index');
+
 Route::get('/posts/show/{id}', 'MainController@postShow') -> name('post.show');
 Route::get('/post/edit/{id}', 'MainController@postEdit') -> name('post.edit');
 Route::post('post/edit/{id}', 'MainController@postUpdate') -> name('post.update');

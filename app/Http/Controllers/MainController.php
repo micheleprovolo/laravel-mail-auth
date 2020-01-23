@@ -11,6 +11,7 @@ use App\Post;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DbActionDelete;
+use App\Mail\DBActionCreate;
 
 class MainController extends Controller
 {
@@ -39,7 +40,11 @@ class MainController extends Controller
     public function postDelete($id) {
         $post = Post::findOrFail($id);
         $post -> delete();
-        return redirect() -> route('home.index');
+
+        Mail::to('admin@mail.com')
+        -> send(new DbActionDelete('Post', $post->title));
+
+        return redirect() -> route('index');
     }
 
     public function categoryEdit($id) {
@@ -51,7 +56,7 @@ class MainController extends Controller
         $validatedData = $request -> validated();
         $category = Category::findOrFail($id);
         $category -> update($validatedData);
-        return redirect() -> route('home.index');
+        return redirect() -> route('index');
     }
 
     public function categoryDelete($id) {
@@ -68,7 +73,7 @@ class MainController extends Controller
                     $category -> name
                 ));
 
-        return redirect() -> route('home.index');
+        return redirect() -> route('index');
     }
 
     public function categoryPost($id) {
@@ -82,7 +87,10 @@ class MainController extends Controller
         $category = Category::findOrFail($id);
         $post -> category() -> associate($category);
         $post -> save();
-        return redirect() -> route('home.index');
+
+        Mail::to('admin@mail.com')
+        -> send(new DbActionCreate('Post', $post->title));
+        return redirect() -> route('index');
     }
 
 }

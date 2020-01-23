@@ -10,7 +10,7 @@
 <body>
   
   <header>
-    <a href="{{ route('home.index') }}">
+    <a href="{{ route('index') }}">
       <h1>BLOG
         
         @auth
@@ -26,7 +26,7 @@
   <div class="content">
     @yield('content')
   </div>
-
+ 
   <footer>
     <p>Bye Bye</p>
   </footer>
