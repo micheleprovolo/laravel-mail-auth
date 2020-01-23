@@ -11,7 +11,15 @@
   
   <header>
     <a href="{{ route('home.index') }}">
-      <h1>BLOG</h1>
+      <h1>BLOG
+        
+        @auth
+          {{ Auth::user() -> name }}
+        @else
+          (Guest)
+        @endauth
+
+      </h1>
     </a>
   </header>
   
